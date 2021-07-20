@@ -2,30 +2,20 @@ import { useState } from "react";
 import "./RegisterForm.css";
 
 export default function RegisterForm() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [emailRepeat, setEmailRepeat] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+    passwordRepeat: "",
+    email: "",
+    emailRepeat: "",
+  });
 
-  function handleUsernameChange(event) {
-    setUsername(event.target.value);
-  }
-
-  function handlePasswordChange(event) {
-    setPassword(event.target.value);
-  }
-
-  function handlePasswordRepeatChange(event) {
-    setPasswordRepeat(event.target.value);
-  }
-
-  function handleEmailChange(event) {
-    setEmail(event.target.value);
-  }
-
-  function handleEmailRepeatChange(event) {
-    setEmailRepeat(event.target.value);
+  function handleOnChange(event) {
+    const value = event.target.value;
+    const key = event.target.id;
+    const newUser = { ...user };
+    newUser[key] = value;
+    setUser(newUser);
   }
 
   function handleSubmit(event) {
@@ -47,13 +37,7 @@ export default function RegisterForm() {
       alert("Please try again");
       return;
     }
-    console.log(errorCount);
-
-    console.log({
-      username,
-      password,
-      email,
-    });
+    console.log(user);
   }
 
   return (
@@ -63,40 +47,40 @@ export default function RegisterForm() {
         placeholder="username"
         name="username"
         id="username"
-        onChange={handleUsernameChange}
-        value={username}
+        onChange={handleOnChange}
+        value={user.username}
       />
       <input
         type="password"
         placeholder="password"
         name="password"
         id="password"
-        onChange={handlePasswordChange}
-        value={password}
+        onChange={handleOnChange}
+        value={user.password}
       />
       <input
         type="password"
         placeholder="repeat password"
         name="passwordRepeat"
         id="passwordRepeat"
-        onChange={handlePasswordRepeatChange}
-        value={passwordRepeat}
+        onChange={handleOnChange}
+        value={user.passwordRepeat}
       />
       <input
         type="email"
         placeholder="email"
         name="email"
         id="email"
-        onChange={handleEmailChange}
-        value={email}
+        onChange={handleOnChange}
+        value={user.email}
       />
       <input
         type="email"
         placeholder="repeat email"
         name="emailRepeat"
         id="emailRepeat"
-        onChange={handleEmailRepeatChange}
-        value={emailRepeat}
+        onChange={handleOnChange}
+        value={user.emailRepeat}
       />
       <button type="submit"> Register! </button>
     </form>
